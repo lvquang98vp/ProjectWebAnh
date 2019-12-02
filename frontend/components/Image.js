@@ -1,93 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Card, Col, Row } from 'antd';
 import Link from '../components/Link';
+import axios from 'axios';
+import config from '../config';
 
 const { Meta } = Card;
 
-const Image = () => {
-    return (
-        <Row gutter={16}>
-            <Col span={6}>
-                <Link href="/image/7F1bHq5">
-                    <Card
-                    hoverable
-                    style={{ width: '' }}
-                    cover={<img alt="example" className="img-fluid" src="https://i.imgur.com/7F1bHq5.png" />}
-                    >
-                        <Meta title='Girl' description='abc'></Meta>
-                    </Card>
-                </Link>
-                
-            </Col>
-            <Col span={6}>
-                <Card
-                    hoverable
-                    style={{ width: '' }}
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                >
-                    <Meta title='Girl' description='abc'></Meta>
-                </Card>
-            </Col>
-            <Col span={6}>
-                <Link href="/image/FnsVq0A">
-                    <Card
-                        hoverable
-                        style={{ width: '' }}
-                        cover={<img alt="example" className="img-fluid" src="https://i.imgur.com/FnsVq0A.jpg" />}
-                    >
-                        <Meta title='Girl' description='abc'></Meta>
-                    </Card>
-                </Link>
-            </Col>
-            <Col span={6}>
-                <a rel="noopener noreferrer" target='_blank' href='https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'>
-                    <Card
-                        hoverable
-                        style={{ width: '' }}
-                        cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                    >
-                        <Meta title='Girl' description='abc'></Meta>
-                    </Card>
-                </a>
-            </Col>
-            <Col span={6}>
-                <Card
-                    hoverable
-                    style={{ width: '' }}
-                    cover={<img alt="example" src="https://t.a4vn.com/2019/01/6/them-phot-chan-dong-jennie-black-pink-bi-dao-lai-facebook-cu-toa-222.jpg" />}
-                >
-                    <Meta title='Girl' description='abc'></Meta>
-                </Card>
-            </Col>
-            <Col span={6}>
-                <Card
-                    hoverable
-                    style={{ width: '' }}
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                >
-                    <Meta title='Girl' description='abc'></Meta>
-                </Card>
-            </Col>
-            <Col span={6}>
-                <Card
-                    hoverable
-                    style={{ width: '' }}
-                    cover={<img alt="example" src="https://t.a4vn.com/2019/01/6/them-phot-chan-dong-jennie-black-pink-bi-dao-lai-facebook-cu-toa-222.jpg" />}
-                >
-                    <Meta title='Girl' description='abc'></Meta>
-                </Card>
-            </Col>
-            <Col span={6}>
-                <Card
-                    hoverable
-                    style={{ width: '' }}
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                >
-                    <Meta title='Girl' description='abc'></Meta>
-                </Card>
-            </Col>
-        </Row>
-    );
+class Image extends Component {
+    state = {
+        images: []
+    };
+    componentDidMount() {
+        axios.create({ baseURL: config.rootPath })
+            .get('api/image/allImage')
+            .then(response => {
+                console.log(response.data);
+                if (response.data.success) {
+                    this.setState({ images: response.data.images });
+                    console.log(this.state.images);
+                }
+            })
+            .catch(err => console.log(err));
+    }
+    render() {
+        const allImages = this.state.images.map(info => {
+            return (
+                <Col key={info._id} span={6}>
+                    <Link href={`/image/${info._id}`}>
+                        <Card                          
+                            hoverable
+                            style={{ width: '' }}
+                            cover={<img alt="example" className="img-fluid" src={info.urlImage} />}
+                        >
+                            <Meta title={info.title} description={info.description}></Meta>
+                        </Card>
+                    </Link>
+                </Col>
+            );
+        })
+        return (
+            <Row gutter={16} >
+                {allImages}
+            </Row>
+        );
+    };
 }
 
 export default Image;

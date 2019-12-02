@@ -49,7 +49,6 @@ export default () => {
                     <StyledUploadForm>
                         <UploadForm />
                     </StyledUploadForm>
-                    <Button type='primary' style={{ marginTop: 30 }}>Submit</Button>
                 </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>Upload Image Created by PhuNX</Footer>
