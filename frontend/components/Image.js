@@ -26,7 +26,7 @@ class Image extends Component {
         const allImages = this.state.images.map(info => {
             return (
                 <Col key={info._id} span={6}>
-                    <Link href={`/image/${info._id}`}>
+                    <a href={info.urlImage}>
                         <Card                          
                             hoverable
                             style={{ width: '' }}
@@ -34,7 +34,7 @@ class Image extends Component {
                         >
                             <Meta title={info.title} description={info.description}></Meta>
                         </Card>
-                    </Link>
+                    </a>
                 </Col>
             );
         })
