@@ -49,7 +49,7 @@ Router.post('/', (req, res) => {
     const salt = bcrypt.genSaltSync()
     const hashPassword = bcrypt.hashSync(password, salt)
     UserModel.create({ username, hashPassword, nameDisplay, sex, dateOfBirth, avatarUrl }, (err, newuserCreated) => {
-        if (err) res.status(500).send({ success: 0, err: err })
+        if (err) res.status(500).send({ success: 0, err: "Tên đăng nhập đã tồn tại" })
         else res.status(201).send({ success: 1, newuserCreated })
     })
 
@@ -62,7 +62,7 @@ Router.put('/:IDuser', async (req, res) => {
     const updateInfo = { password, avatarUrl, allPoint }
     try {
         let UserFound = await UserModel.findById(req.params.IDuser);
-        if (!UserFound) res.status(404).send({ success: 0, message: "user don't exist!" })
+        if (!UserFound) res.status(404).send({ success: 0, message: "Người dùng không tồn tại" })
         else {
             for (let key in updateInfo) {
                 // check new password 
@@ -93,44 +93,11 @@ Router.put('/:IDuser', async (req, res) => {
 })
 
 
-// Router.put('/:IDuser', async (req, res) => {
-//     // Only info edited
-//     console.log("update info")
-//     const { password, avatarUrl } = req.body;
-//     const updateInfo = { password, avatarUrl }
-
-//     try {
-//         let UserFound = await UserModel.findById(req.params.IDuser);
-//         if (!UserFound) res.status(404).send({ success: 0, message: "user don't exist!" })
-//         else {
-//             for (let key in updateInfo) {
-//                 // check new password 
-//                 if (key == 'password' && updateInfo[key]) {
-//                     let compare = bcrypt.compareSync(updateInfo.password, UserFound.hashPassword)
-//                     if (!compare) {
-//                         let salt = bcrypt.genSaltSync()
-//                         UserFound.hashPassword = bcrypt.hashSync(updateInfo.password, salt)
-//                     }
-//                 }
-//                 if (updateInfo[key]) {
-//                     UserFound[key] = updateInfo[key];
-//                 }
-//             }
-//             const userUpdated = await UserFound.save();
-//             res.send({ success: 1, userUpdated })
-//         }
-//     } catch (err) {
-//         res.status(500).send({ succes: 0, mess: err })
-//     }
-// })
-
-// Delete User 
-
 Router.delete('/:IDuser', (req, res) => {
     let idUser = req.params.IDuser;
     UserModel.findOneAndRemove(idUser, (err) => {
-        if (err) res.json({ success: 0, message: "Can't delete user" });
-        else res.json({ success: 1, message: "Deleted user" })
+        if (err) res.json({ success: 0, message: "Không thể xóa người dùng" });
+        else res.json({ success: 1, message: "Đã xóa người dùng" })
         if (!idUser) res.status(404).send({ succes: 0, mess: "user deleted" })
     })
 })
