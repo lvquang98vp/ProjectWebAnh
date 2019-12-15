@@ -14,9 +14,9 @@ ImageRouter.get('/allImage', async (req, res) =>{
 
 ImageRouter.post('/addImage', (req, res) => {
     console.log("UP anh");
-    const { user, urlImage, title, description, hashtagImage } = req.body;
+    const { user, id, urlImage, title, description, hashtagImage } = req.body;
     
-    ListImagesModel.create({ user, urlImage, title, description, hashtagImage }, (err, newimageAdded) => {
+    ListImagesModel.create({ user, id, urlImage, title, description, hashtagImage }, (err, newimageAdded) => {
         if (err) res.status(500).send({ success: 0, err: err })
         else res.status(201).send({ success: 1, newimageAdded })
     })
