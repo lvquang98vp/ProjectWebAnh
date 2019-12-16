@@ -20,11 +20,6 @@ const LayoutPage = ({ children }) => {
                     <Menu.Item key="2"><LinkA href='/upload'>Upload</LinkA></Menu.Item>
                     <Menu.Item key="3"><LinkA href='/login'>Login</LinkA></Menu.Item>
                     <Menu.Item key="4"><LinkA href='/register'>Register</LinkA></Menu.Item>
-                    <Menu.Item ><Search
-                        placeholder="input search text"
-                        onSearch={value => console.log(value)}
-                        style={{ width: 500 }}
-                    /></Menu.Item>
                 </Menu>
             </Header>
             <Content style={{ padding: '0 50px', marginTop: 64 }}>

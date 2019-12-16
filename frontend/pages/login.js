@@ -21,11 +21,6 @@ export default () => (
                 <Menu.Item key="2"><Link href='/upload'>Upload</Link></Menu.Item>
                 <Menu.Item key="3"><Link href='/login'>Login</Link></Menu.Item>
                 <Menu.Item key="4"><Link href='/register'>Register</Link></Menu.Item>
-                <Menu.Item ><Search
-                    placeholder="input search text"
-                    onSearch={value => console.log(value)}
-                    style={{ width: 500 }}
-                /></Menu.Item>
             </Menu>
         </Header>
         <Content style={{ padding: '0 50px', marginTop: 64 }}>
