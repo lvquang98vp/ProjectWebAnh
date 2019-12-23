@@ -1,17 +1,19 @@
 import React from 'react';
 import { Card } from 'antd';
-import LayoutPage from '../components/LayoutPage';
+import LayoutPage from '../../components/LayoutPage';
+import { useRouter } from 'next/router';
 
 const { Meta } = Card;
 
 const DetailImage = () => {
+    const router = useRouter();
     return (
         <LayoutPage>
             <div style={{ background: '#fff', padding: 24, minHeight: 900, }}>
                 <Card
                     hoverable
                     style={{ width: '' }}
-                    cover={<img alt="example" className="img-fluid" src="https://i.imgur.com/7F1bHq5.png" />}
+                    cover={<img alt="example" className="img-fluid" src={`https://i.imgur.com/${router.query.id}.png`} />}
                 >
                     <Meta title='Girl' description='abc'></Meta>
                 </Card>

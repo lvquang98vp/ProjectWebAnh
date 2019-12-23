@@ -36,7 +36,10 @@ const LoginForm = () => {
                     window.location.href = '/upload';
                 }
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                window.alert("Username not found or Wrong password");
+            });
     }
 
     return (
