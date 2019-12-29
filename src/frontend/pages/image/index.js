@@ -13,7 +13,7 @@ const DetailImage = () => {
                 <Card
                     hoverable
                     style={{ width: '' }}
-                    cover={<img alt="example" className="img-fluid" src={`https://i.imgur.com/${router.query.id}.png`} />}
+                    cover={<img alt="example" className="img-fluid" src={`https://i.imgur.com/abc`} />}
                 >
                     <Meta title='Girl' description='abc'></Meta>
                 </Card>

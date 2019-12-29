@@ -12,6 +12,20 @@ ImageRouter.get('/allImage', async (req, res) =>{
     }
 })
 
+ImageRouter.get('/:IDImage', async(req, res) => {
+    const idImage = req.params.IDImage;
+    try {
+        const imageFound = await ListImagesModel.findById(idImage)
+        if (!imageFound) {
+            res.status(404).json({ success: 0, message: "Not found!" })
+        } else {
+            res.json({ success: 1, imageFound })
+        }
+    } catch (error) {
+        res.status(500).json({ success: 0, message: error })
+    }
+})
+
 ImageRouter.post('/addImage', (req, res) => {
     console.log("UP anh");
     const { user, id, urlImage, title, description, hashtagImage } = req.body;
@@ -30,6 +44,8 @@ ImageRouter.delete('/:IDImage', (req, res) => {
         if (!idImage) res.status(404).send({ succes: 0, mess: "image deleted" })
     })
 })
+
+
 
 
 
