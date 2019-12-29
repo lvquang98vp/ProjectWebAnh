@@ -1,5 +1,6 @@
 var app = require('express')();
 var http = require('http').Server(app);
+const express = require('express');
 var io = require('socket.io')(http);
 const bodyParse = require('body-parser');
 const mongoose = require('mongoose');
@@ -32,7 +33,7 @@ app.use( session({
 
 
 app.use("/api", apiRouter);
-
+app.use(express.static('./public'));
 
 // mongoose.connect("mongodb://musicbattleperfect:musicbattleperfect98@ds161092.mlab.com:61092/musicbattleperfect", { useNewUrlParser: true }, function (err) {
 mongoose.connect("mongodb://localhost/project1", { useNewUrlParser: true }, function (err) {
